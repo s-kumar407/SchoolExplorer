@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { base_url} from "@/constant/constants"; 
+import { base_url } from "@/constant/constants"; 
 export default function HomePage() {
   let [schools, setSchools] = useState([]);
   let [userData, setUserData] = useState("");

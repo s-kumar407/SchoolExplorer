@@ -33,7 +33,7 @@ export default function AddSchool({ addSchoolDetails }) {
     let localUserData = localStorage.getItem("userData");
     localUserData = JSON.parse(localUserData);
     let userData = await fetch(
-      `${base_url+port}/api/users/${localUserData.email}`,
+      `${base_url}/api/users/${localUserData.email}`,
       {
         cache: "no-cache",
       }
@@ -43,7 +43,7 @@ export default function AddSchool({ addSchoolDetails }) {
       userData = await userData.json();
       let userId = userData.id;
       let presentSchoolDataInDatabase = await fetch(
-        `${base_url+port}/api/schools`,
+        `${base_url}/api/schools`,
         {
           cache: "no-cache",
         }

@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { base_url } from "@/constant/constants";
+import { base_url} from "@/constant/constants";
 export default function Component() {
   let router = useRouter();
   let [data, setData] = useState();
