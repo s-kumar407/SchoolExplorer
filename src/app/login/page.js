@@ -4,14 +4,14 @@ import { CardDescription } from "@/components/ui/card";
 import { CardTitle } from "@/components/ui/card";
 import { CardHeader } from "@/components/ui/card";
 import LoginFormButton from "./loginformButton";
-import { base_url,port } from "@/constant/constants";
+import { base_url } from "@/constant/constants";
 async function getData(email, userPass) {
   "use server";
 
   const useremail = email;
   const userpassword = userPass;
 
-  const usersDetails = await fetch(`${base_url+port}/api/users`, {
+  const usersDetails = await fetch(`${base_url}/api/users`, {
     cache: "no-cache",
   });
 

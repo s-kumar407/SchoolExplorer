@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { base_url,port } from "@/constant/constants"; 
+import { base_url} from "@/constant/constants"; 
 export default function HomePage() {
   let [schools, setSchools] = useState([]);
   let [userData, setUserData] = useState("");
@@ -13,7 +13,7 @@ export default function HomePage() {
   let [wholeSchoolsData, setWholeSchoolsData] = useState("");
   let router = useRouter();
   async function fetchSchoolDetails() {
-    const schoolsDetails = await fetch(`${base_url+port}/api/schools`, {
+    const schoolsDetails = await fetch(`${base_url}/api/schools`, {
       cache: "no-cache",
     });
     let schoolsData = await schoolsDetails.json();

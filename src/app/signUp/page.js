@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { base_url,port } from "@/constant/constants";
+import { base_url} from "@/constant/constants";
 export default function SignUp() {
   let [username, setUserName] = useState("");
   let [useremail, setUserEmail] = useState("");
@@ -14,10 +14,10 @@ export default function SignUp() {
   let router = useRouter();
   async function retrieveFormData(e) {
     e.preventDefault();
-    let usersData = await fetch(`${base_url+port}/api/users`);
+    let usersData = await fetch(`${base_url}/api/users`);
     usersData = await usersData.json();
 
-    let response = await fetch(`${base_url+port}/api/users`, {
+    let response = await fetch(`${base_url}/api/users`, {
       method: "POST",
       body: JSON.stringify({
         username,

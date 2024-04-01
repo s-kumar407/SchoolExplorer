@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { base_url,port } from "@/constant/constants";
+import { base_url } from "@/constant/constants";
 export default function Component() {
   let router = useRouter();
   let [data, setData] = useState();
@@ -70,7 +70,7 @@ export default function Component() {
 
   const handleSaveProfile = async () => {
     let userId = data.id;
-    const updateUser = await fetch(`${base_url+port}/api/users`, {
+    const updateUser = await fetch(`${base_url}/api/users`, {
       method: "PUT",
       cache: "no-cache",
       body: JSON.stringify({

@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { base_url, port } from "@/constant/constants";
+import { base_url} from "@/constant/constants";
 
 export default function Component() {
   let [isEditing, setIsEditing] = useState(false);
@@ -42,7 +42,7 @@ export default function Component() {
     );
     userData = await userData.json();
     let schoolid = userData.schoolId;
-    let schoolData = await fetch(`${base_url + port}/api/schools/${schoolid}`, {
+    let schoolData = await fetch(`${base_url}/api/schools/${schoolid}`, {
       cache: "no-cache",
     });
 
@@ -70,7 +70,7 @@ export default function Component() {
   async function handleSaveSchoolProfile() {
     let schoolId = data.schoolId;
 
-    let updateSchoolData = await fetch(`${base_url + port}/api/schools`, {
+    let updateSchoolData = await fetch(`${base_url}/api/schools`, {
       method: "PUT",
       cache: "no-cache",
       body: JSON.stringify({

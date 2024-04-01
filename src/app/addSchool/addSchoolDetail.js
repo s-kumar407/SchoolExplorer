@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { base_url,port } from "@/constant/constants";
+import { base_url} from "@/constant/constants";
 export default function AddSchool({ addSchoolDetails }) {
   let [schoolName, setSchoolName] = useState("");
   let [schoolAddress, setSchoolAddress] = useState("");
@@ -49,7 +49,7 @@ export default function AddSchool({ addSchoolDetails }) {
         }
       );
       presentSchoolDataInDatabase = await presentSchoolDataInDatabase.json();
-      let addSchoolData = await fetch(`${base_url+port}/api/schools`, {
+      let addSchoolData = await fetch(`${base_url}/api/schools`, {
         method: "POST",
         cache: "no-cache",
         body: JSON.stringify({
