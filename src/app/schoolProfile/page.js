@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { base_url, port } from "@/constant/constants";
+import { base_url} from "@/constant/constants";
 
 export default function Component() {
   let [isEditing, setIsEditing] = useState(false);
@@ -35,7 +35,7 @@ export default function Component() {
     localUserData = JSON.parse(localUserData);
 
     let userData = await fetch(
-      `${base_url + port}/api/users/${localUserData.email}`,
+      `${base_url}/api/users/${localUserData.email}`,
       {
         cache: "no-cache",
       }
