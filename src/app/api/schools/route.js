@@ -2,14 +2,10 @@ import { NextResponse } from "next/server";
 import prisma from "@/database/db";
 export async function GET(request) {
   const schoolDetails = await prisma.schools.findMany();
-  let schoolData = schoolDetails.map((row) => {
-    row.image = JSON.parse(row.image);
-    return row;
-  });
 
   return NextResponse.json(
-    schoolData,
-    schoolData != undefined
+    schoolDetails,
+    schoolDetails != undefined
       ? { status: 200, result: "school details fetched successfully" }
       : { status: 400, result: "data not found" }
   );
