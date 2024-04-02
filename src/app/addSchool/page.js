@@ -8,10 +8,6 @@ export default function AddSchoolDetails() {
     "use server";
     const schoolImage = formData.get("schoolImage");
 
-    if (!schoolImage || !(schoolImage instanceof File)) {
-      return;
-    }
-
     // Decoding base64 string to binary data
     const fileContents = await schoolImage.arrayBuffer();
     const path = join(process.cwd(), "public/schoolImages", schoolImage.name);
