@@ -36,7 +36,7 @@ export default function Component() {
     localUserData = JSON.parse(localUserData);
 
     let userData = await fetch(
-    `${base_url+port}/api/users/${localUserData.email}`,
+    `${base_url}/api/users/${localUserData.email}`,
       {
         cache: "no-cache",
       }

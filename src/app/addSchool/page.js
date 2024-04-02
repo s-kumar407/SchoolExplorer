@@ -1,14 +1,12 @@
 import Link from "next/link";
 import { writeFile } from "fs/promises";
 import { join } from "path";
-
 import AddSchool from "./addSchoolDetail";
 export default function AddSchoolDetails() {
   async function addSchoolDetails(formData) {
     "use server";
     const schoolImage = formData.get("schoolImage");
 
-    // Decoding base64 string to binary data
     const fileContents = await schoolImage.arrayBuffer();
     const path = join(process.cwd(), "public/schoolImages", schoolImage.name);
     await writeFile(path, Buffer.from(fileContents));
