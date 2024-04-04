@@ -16,7 +16,7 @@ model Schools {
   schoolState   String?  @db.VarChar(30)
   contactNo     String?  @db.VarChar(30)
   schoolEmail   String?  @db.VarChar(50)
-  image         String?  @db.Text
+  imageId       String?  @db.Text
   user          Users?    @relation(fields: [userId], references: [id]) // Define the one-to-one relationship with User
   userId        Int     @unique 
 }

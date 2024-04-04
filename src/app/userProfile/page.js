@@ -136,7 +136,7 @@ export default function Component() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="password">User-Name</Label>
+                <Label htmlFor="username">User-Name</Label>
                 {data ? (
                   <Input
                     type="text"
@@ -152,7 +152,7 @@ export default function Component() {
                 )}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">User-Email</Label>
+                <Label htmlFor="useremail">User-Email</Label>
                 {data ? (
                   <Input
                     type="text"
@@ -184,7 +184,7 @@ export default function Component() {
                 )}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Contact-Number</Label>
+                <Label htmlFor="contactNumber">Contact-Number</Label>
                 {data ? (
                   <Input
                     type="text"

@@ -152,7 +152,7 @@ export default function HomePage() {
                         height="40"
                           alt="School Image"
                          
-                           src={`/schoolImages/${row.image.name}`}
+                           src={`https://ucarecdn.com/${row.imageId}/`}
                         />
                       </div>
 

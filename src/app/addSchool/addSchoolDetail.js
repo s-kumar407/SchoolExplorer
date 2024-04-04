@@ -5,49 +5,51 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { base_url} from "@/constant/constants";
-export default function AddSchool({ addSchoolDetails }) {
+import { base_url } from "@/constant/constants";
+import * as LR from "@uploadcare/blocks";
+import { useRef, useEffect } from "react";
+LR.registerBlocks(LR);
+export default function AddSchool() {
   let [schoolName, setSchoolName] = useState("");
   let [schoolAddress, setSchoolAddress] = useState("");
   let [schoolState, setSchoolState] = useState("");
   let [schoolCity, setSchoolCity] = useState("");
   let [schoolEmail, setSchoolEmail] = useState("");
   let [schoolContactNumber, setSchoolContactNumber] = useState("");
-  let [schoolImage, setSchoolImage] = useState(null);
-  let [schoolImageDataInString, setSchoolImageDataInString] = useState("");
+  const ctxProviderRef = useRef(null);
+  let [schoolImageId, setSchoolImageId] = useState(null);
   let router = useRouter();
+  useEffect(() => {
+    const ctxProvider = ctxProviderRef.current;
+    if (!ctxProvider) return;
+
+    const handleChangeEvent = (event) => {
+      let imageInfo = event.detail.allEntries[0];
+      console.log(imageInfo.uuid);
+      setSchoolImageId(`${imageInfo.uuid}`);
+    };
+
+    ctxProvider.addEventListener("change", handleChangeEvent);
+
+    return () => {
+      ctxProvider.removeEventListener("change", handleChangeEvent);
+    };
+  }, [setSchoolImageId]);
   async function addSchool(e) {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("schoolName", schoolName);
-    formData.append("schoolAddress", schoolAddress);
-    formData.append("schoolState", schoolState);
-    formData.append("schoolCity", schoolCity);
-    formData.append("schoolEmail", schoolEmail);
-    formData.append("schoolContactNumber", schoolContactNumber);
-    formData.append("schoolImage", schoolImage); // Append file object
-
-    await addSchoolDetails(formData);
-
     let localUserData = localStorage.getItem("userData");
     localUserData = JSON.parse(localUserData);
-    let userData = await fetch(
-      `${base_url}/api/users/${localUserData.email}`,
-      {
-        cache: "no-cache",
-      }
-    );
+    let userData = await fetch(`${base_url}/api/users/${localUserData.email}`, {
+      cache: "no-cache",
+    });
 
     if (userData) {
       userData = await userData.json();
       let userId = userData.id;
-      let presentSchoolDataInDatabase = await fetch(
-        `${base_url}/api/schools`,
-        {
-          cache: "no-cache",
-        }
-      );
+      let presentSchoolDataInDatabase = await fetch(`${base_url}/api/schools`, {
+        cache: "no-cache",
+      });
       presentSchoolDataInDatabase = await presentSchoolDataInDatabase.json();
       let addSchoolData = await fetch(`${base_url}/api/schools`, {
         method: "POST",
@@ -59,7 +61,7 @@ export default function AddSchool({ addSchoolDetails }) {
           schoolCity,
           schoolEmail,
           schoolContactNumber,
-          schoolImageDataInString,
+          schoolImageId,
           userId,
           presentSchoolDataInDatabase,
         }),
@@ -76,7 +78,7 @@ export default function AddSchool({ addSchoolDetails }) {
         setSchoolState("");
         setSchoolContactNumber("");
         setSchoolEmail("");
-        setSchoolImage();
+        setSchoolImageUrl("");
         router.push("/addSchool");
       } else {
         let schoolAdded = localUserData.schoolAdded;
@@ -95,33 +97,40 @@ export default function AddSchool({ addSchoolDetails }) {
     }
   }
 
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    let schoolData = {
-      name: selectedFile.name,
-      type: selectedFile.type,
-      size: selectedFile.size,
-      path: "public/schoolImages",
-    };
-    schoolData = JSON.stringify(schoolData);
-    setSchoolImageDataInString(schoolData);
-    setSchoolImage(selectedFile);
-  };
+  // const handleFileChange = (event) => {
+  //   const selectedFile = event.target.files[0];
+  //   let schoolData = {
+  //     name: selectedFile.name,
+  //     type: selectedFile.type,
+  //     size: selectedFile.size,
+  //     path: "public/schoolImages",
+  //   };
+  //   schoolData = JSON.stringify(schoolData);
+  //   setSchoolImageDataInString(schoolData);
+  //   setSchoolImage(selectedFile);
+  // };
   return (
     <>
       <div className="container mx-auto px-4">
-        <Card className="w-full sm:max-w-md md:max-w-lg py-4">
+        <Card className="w-full sm:max-w-md md:max-w-lg py-4 bg-blue-300 ">
           <CardContent>
             <div className="grid grid-cols-1 gap-4">
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold">Add a new school</h1>
-                <p className="text-gray-500 dark:text-gray-400">
+                <h1 className=" text-base lg:text-lg text-slate-500 font-bold">
+                  Add a new school
+                </h1>
+                <p className="text-base lg:text-lg text-slate-500 font-bold">
                   Enter the school information below.
                 </p>
               </div>
               <form onSubmit={addSchool}>
                 <div className="my-1">
-                  <Label htmlFor="school-name">School name</Label>
+                  <Label
+                    htmlFor="school-name"
+                    className="text-slate-600 font-bold"
+                  >
+                    School name
+                  </Label>
                   <Input
                     name="schoolName"
                     type="text"
@@ -134,7 +143,9 @@ export default function AddSchool({ addSchoolDetails }) {
                   />
                 </div>
                 <div className="my-1">
-                  <Label htmlFor="address">Address</Label>
+                  <Label htmlFor="address" className="text-slate-600 font-bold">
+                    Address
+                  </Label>
                   <Input
                     name="schoolAddress"
                     type="text"
@@ -147,7 +158,9 @@ export default function AddSchool({ addSchoolDetails }) {
                   />
                 </div>
                 <div className="my-1">
-                  <Label htmlFor="city">City</Label>
+                  <Label htmlFor="city" className="text-slate-600 font-bold">
+                    City
+                  </Label>
                   <Input
                     name="schoolCity"
                     type="text"
@@ -160,7 +173,9 @@ export default function AddSchool({ addSchoolDetails }) {
                   />
                 </div>
                 <div className="my-1">
-                  <Label htmlFor="state">State</Label>
+                  <Label htmlFor="state" className="text-slate-600 font-bold">
+                    State
+                  </Label>
                   <Input
                     name="schoolState"
                     type="text"
@@ -173,7 +188,12 @@ export default function AddSchool({ addSchoolDetails }) {
                   />
                 </div>
                 <div className="my-1">
-                  <Label htmlFor="contact-number">Contact number</Label>
+                  <Label
+                    htmlFor="contact-number"
+                    className="text-slate-600 font-bold"
+                  >
+                    Contact number
+                  </Label>
                   <Input
                     name="contactNumber"
                     placeholder="Enter the contact number"
@@ -186,7 +206,9 @@ export default function AddSchool({ addSchoolDetails }) {
                   />
                 </div>
                 <div className="my-1">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email" className="text-slate-600 font-bold">
+                    Email
+                  </Label>
                   <Input
                     name="schoolEmail"
                     type="email"
@@ -198,16 +220,35 @@ export default function AddSchool({ addSchoolDetails }) {
                     required
                   />
                 </div>
-                <div className="my-1">
-                  <Label htmlFor="image">Image</Label>
-                  <Input
+                <div className="my-1 flex flex-col">
+                  <Label
+                    htmlFor="image "
+                    className="text-slate-600 font-bold my-1"
+                  >
+                    Image
+                  </Label>
+                  <lr-config
+                    ctx-name="my-uploader"
+                    pubkey="a8d36366e838702f2c5c"
+                    max-local-file-size-bytes="10000000"
+                    img-only="true"
+                  />
+                  <lr-file-uploader-regular
+                    ctx-name="my-uploader"
+                    css-src={`https://cdn.jsdelivr.net/npm/@uploadcare/blocks@0.36.0/web/lr-file-uploader-regular.min.css`}
+                  />
+                  <lr-upload-ctx-provider
+                    ctx-name="my-uploader"
+                    ref={ctxProviderRef}
+                  />
+                  {/* <Input
                     name="schoolImage"
                     type="file"
                     placeholder="Enter the image"
                     onChange={handleFileChange}
                     required
-                  />
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  /> */}
+                  <p className="text-base lg:text-lg text-slate-500 font-bold">
                     PNG, JPG, GIF up to 10MB
                   </p>
                 </div>

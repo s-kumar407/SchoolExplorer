@@ -1,16 +1,8 @@
 import Link from "next/link";
-import { writeFile } from "fs/promises";
-import { join } from "path";
 import AddSchool from "./addSchoolDetail";
-export default function AddSchoolDetails() {
-  async function addSchoolDetails(formData) {
-    "use server";
-    const schoolImage = formData.get("schoolImage");
 
-    const fileContents = await schoolImage.arrayBuffer();
-    const path = join(process.cwd(), "public/schoolImages", schoolImage.name);
-    await writeFile(path, Buffer.from(fileContents));
-  }
+export default function AddSchoolDetails() {
+
   return (
     <>
       <div className="flex flex-col min-h-screen">
@@ -27,8 +19,7 @@ export default function AddSchoolDetails() {
 
         <div className=" flex flex-col flex-grow  items-center">
           <div className="mt-6 flex flex-col items-center">
-           
-            <AddSchool addSchoolDetails={addSchoolDetails} />
+            <AddSchool />
           </div>
         </div>
         <footer className="p-4 border-t w-full bg-blue-500 text-white text-center">

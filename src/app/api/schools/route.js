@@ -2,14 +2,10 @@ import { NextResponse } from "next/server";
 import prisma from "@/database/db";
 export async function GET(request) {
   const schoolDetails = await prisma.schools.findMany();
-  let schoolData = schoolDetails.map((row) => {
-    row.image = JSON.parse(row.image);
-    return row;
-  });
-  console.log(schoolData);
+  
   return NextResponse.json(
-    schoolData,
-    schoolData !== undefined
+    schoolDetails,
+    schoolDetails !== undefined
       ? { status: 200, result: "school details fetched successfully" }
       : { status: 400, result: "data not found" }
   );
@@ -18,8 +14,7 @@ export async function GET(request) {
 export async function POST(request) {
   let payload = await request.json();
   let userId = parseInt(payload.userId);
-  let schoolImage = payload.schoolImageDataInString;
-
+  console.log(payload.schoolImageId);
   let presentSchoolDataInDatabase = payload.presentSchoolDataInDatabase;
   let dataPresent = presentSchoolDataInDatabase.some((row) => {
     return (
@@ -39,7 +34,7 @@ export async function POST(request) {
         schoolState: payload.schoolState,
         contactNo: payload.schoolContactNumber,
         schoolEmail: payload.schoolEmail,
-        image: schoolImage,
+        imageId: payload.schoolImageId,
         userId: userId,
       },
     });

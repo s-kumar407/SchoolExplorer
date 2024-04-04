@@ -83,7 +83,7 @@ export default function SignUp() {
                       placeholder="Enter your username"
                       type="text"
                      pattern= "[A-Za-z0-9]*"
-                     title="Please choose first letter of username as alphabet"
+                     title="Please choose first letter of username as alphabet and also Do not leave space between words"
                       value={username}
                       onChange={(e) => setUserName(e.target.value)}
                       required

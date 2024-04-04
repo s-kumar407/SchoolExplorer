@@ -23,7 +23,7 @@ export default function Component() {
   let [schoolCity, setSchoolCity] = useState("");
   let [schoolEmail, setSchoolEmail] = useState("");
   let [schoolContactNumber, setSchoolContactNumber] = useState("");
-  let [schoolImage, setSchoolImage] = useState();
+  let [schoolImageId, setSchoolImageId] = useState();
   let [schoolImageName, setSchoolImageName] = useState();
   let router = useRouter();
   useEffect(() => {
@@ -55,9 +55,7 @@ export default function Component() {
       setSchoolState(schoolData.schoolState);
       setSchoolContactNumber(schoolData.contactNo);
       setSchoolAddress(schoolData.schoolAddress);
-      let image = JSON.parse(schoolData.image);
-      setSchoolImageName(image.name);
-      setSchoolImage(image);
+      setSchoolImageId(schoolData.imageId);
     } else {
       alert("somthing went wrong");
       router.push("/");
@@ -125,7 +123,7 @@ export default function Component() {
                         alt="School Image"
                         height="40"
                         width="144"
-                        src={`/schoolImages/${schoolImageName}`}
+                        src={`https://ucarecdn.com/${schoolImageId}/`}
                       />
                     </div>
                   ) : (
