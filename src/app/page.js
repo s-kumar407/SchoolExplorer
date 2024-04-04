@@ -146,12 +146,12 @@ export default function HomePage() {
                       className="flex flex-col items-center bg-white rounded-lg border shadow-md overflow-hidden"
                       key={row.schoolId}
                     >
-                      <div className="h-40">
+                      <div className="h-40 object-contain aspect-square mix-blend-color-burn">
                         <Image
-                        width="144"
-                        height="40"
+                          
                           alt="School Image"
-                         
+                         height="40"
+                         width="144"
                            src={`https://ucarecdn.com/${row.imageId}/`}
                         />
                       </div>

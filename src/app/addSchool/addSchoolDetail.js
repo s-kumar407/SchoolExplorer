@@ -25,7 +25,6 @@ export default function AddSchool() {
 
     const handleChangeEvent = (event) => {
       let imageInfo = event.detail.allEntries[0];
-      console.log(imageInfo.uuid);
       setSchoolImageId(`${imageInfo.uuid}`);
     };
 

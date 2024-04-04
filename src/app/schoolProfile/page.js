@@ -114,11 +114,11 @@ export default function Component() {
             </CardHeader>
             <CardContent className="flex">
               <div className="grid gap-6 w-full">
-                <div className="grid gap-2">
+                <div className="grid gap-2 justify-center">
                   <Label htmlFor="school-image">School Image</Label>
 
                   {data ? (
-                    <div className="flex items-center justify-center h-40 border-2 border-double bg-gray-200 dark:bg-gray-700 rounded-lg">
+                    <div className="flex items-center justify-center h-40 object-contain aspect-square mix-blend-color-burn border-2 border-double dark:bg-gray-700 rounded-lg">
                       <Image
                         alt="School Image"
                         height="40"
@@ -158,6 +158,7 @@ export default function Component() {
                   {data ? (
                     <Input
                       id="adress"
+                      className="text-xs font-semibold"
                       value={schoolAddress}
                       onChange={(e) => setSchoolAddress(e.target.value)}
                       readOnly={!isEditing}
