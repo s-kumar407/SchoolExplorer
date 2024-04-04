@@ -146,7 +146,7 @@ export default function HomePage() {
                       className="flex flex-col items-center bg-white rounded-lg border shadow-md overflow-hidden"
                       key={row.schoolId}
                     >
-                      <div className="h-40 object-contain aspect-square mix-blend-color-burn">
+                      <div className="h-40 object-contain aspect-square ">
                         <Image
                           
                           alt="School Image"

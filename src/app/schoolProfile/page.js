@@ -118,7 +118,7 @@ export default function Component() {
                   <Label htmlFor="school-image">School Image</Label>
 
                   {data ? (
-                    <div className="flex items-center justify-center h-40 object-contain aspect-square mix-blend-color-burn border-2 border-double dark:bg-gray-700 rounded-lg">
+                    <div className="flex items-center justify-center h-40 object-contain aspect-square  border-2 border-double dark:bg-gray-700 rounded-lg">
                       <Image
                         alt="School Image"
                         height="40"
